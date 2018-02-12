@@ -1,0 +1,29 @@
+.img-acceso{
+    /*/
+    background-image:url("../images/acceso.jpg");
+    /*/
+    background-color: #ffffff;
+    background-image: url(../img/bg-img/bg-img-3.jpg);
+    opacity: 0.9;
+    /**/
+}
+
+a.forgot{
+    text-decoration: none;
+    color: #444444;
+    outline: 0 !important;
+}
+a.forgot:hover{
+    text-decoration: underline;
+    color: #444444;
+}
+.cls-header {
+    position: relative;
+    /*background-color: rgba(256,256,256,0.4);*/
+}
+.cls-header::after {
+    /*border-top-color: rgba(256,256,256,0.4);*/
+}
+a.glow{
+   text-shadow: 0 0 5px #000000; 
+}
