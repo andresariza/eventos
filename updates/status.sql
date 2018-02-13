@@ -10,24 +10,24 @@ Target Server Type    : MYSQL
 Target Server Version : 50559
 File Encoding         : 65001
 
-Date: 2018-02-13 14:17:42
+Date: 2018-02-13 14:18:09
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for ModulosMenu
+-- Table structure for status
 -- ----------------------------
-DROP TABLE IF EXISTS `ModulosMenu`;
-CREATE TABLE `ModulosMenu` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `itemId` int(11) DEFAULT '0',
-  `modulo` varchar(255) DEFAULT NULL,
-  `estado` int(3) DEFAULT '0',
+DROP TABLE IF EXISTS `status`;
+CREATE TABLE `status` (
+  `id` int(1) NOT NULL,
+  `statusName` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
--- Records of ModulosMenu
+-- Records of status
 -- ----------------------------
+INSERT INTO `status` VALUES ('0', 'Despublicado');
+INSERT INTO `status` VALUES ('1', 'Publicado');
 SET FOREIGN_KEY_CHECKS=1;

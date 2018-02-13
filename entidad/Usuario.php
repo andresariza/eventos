@@ -11,206 +11,154 @@ class Usuario{
      * @access private
      */
     private $db;
- 	
+    
     /**
-     * @type int 
+     * @type int
      * @access private
      */
-    private $idusuario;
-
+    private $id;
+    
     /**
-     * @type varchar 
+     * @type varchar
      * @access private
      */
-    private $usuario;
-
+    private $user;
+    
     /**
-     * @type varchar 
+     * @type varchar
      * @access private
      */
-    private $numerodocumento;
-
+    private $password;
+    
     /**
-     * @type char 
+     * @type varchar
      * @access private
      */
-    private $tipodocumento;
-
+    private $name;
+    
     /**
-     * @type varchar 
+     * @type varchar
      * @access private
      */
-    private $apellidos;
-
+    private $email;
+    
     /**
-     * @type varchar 
+     * @type int
      * @access private
      */
-    private $nombres;
-
-    /**
-     * @type varchar 
-     * @access private
-     */
-    private $codigousuario;
-
-    /**
-     * @type varchar 
-     * @access private
-     */
-    private $semestre;
-
-    /**
-     * @type int 
-     * @access private
-     */
-    private $codigorol;
-
-    /**
-     * @type datetime 
-     * @access private
-     */
-    private $fechainiciousuario;
-
-    /**
-     * @type datetime 
-     * @access private
-     */
-    private $fechavencimientousuario;
-
-    /**
-     * @type datetime 
-     * @access private
-     */
-    private $fecharegistrousuario;
-
-    /**
-     * @type char 
-     * @access private
-     */
-    private $codigotipousuario;
-
-    /**
-     * @type int 
-     * @access private
-     */
-    private $idusuariopadre;
-
-    /**
-     * @type varchar 
-     * @access private
-     */
-    private $ipaccesousuario;
-
-    /**
-     * @type varchar 
-     * @access private
-     */
-    private $codigoestadousuario;
-
-    /**
-     * Constructor
-     * @param Singleton $persistencia
-     */
+    private $status;
+     
     public function Usuario(){
-         $this->db = Factory::createDbo();
+    } 
+    
+    public function setDb(){
+        $this->db = Factory::createDbo();
     }
     
-    public function getIdusuario() {
-        return $this->idusuario;
+    public function getId() {
+        return $this->id;
     }
 
-    public function getUsuario() {
-        return $this->usuario;
+    public function getUser() {
+        return $this->user;
     }
 
-    public function getNumerodocumento() {
-        return $this->numerodocumento;
+    public function getPassword() {
+        return $this->password;
     }
 
-    public function getTipodocumento() {
-        return $this->tipodocumento;
+    public function getName() {
+        return $this->name;
     }
 
-    public function getApellidos() {
-        return $this->apellidos;
+    public function getEmail() {
+        return $this->email;
     }
 
-    public function getNombres() {
-        return $this->nombres;
+    public function getStatus() {
+        return $this->status;
     }
 
-    public function getCodigousuario() {
-        return $this->codigousuario;
+    public function setId($id) {
+        $this->id = $id;
     }
 
-    public function getSemestre() {
-        return $this->semestre;
+    public function setUser($user) {
+        $this->user = $user;
     }
 
-    public function getCodigorol() {
-        return $this->codigorol;
+    public function setPassword($password) {
+        $this->password = $password;
     }
 
-    public function getFechainiciousuario() {
-        return $this->fechainiciousuario;
+    public function setName($name) {
+        $this->name = $name;
     }
 
-    public function getFechavencimientousuario() {
-        return $this->fechavencimientousuario;
+    public function setEmail($email) {
+        $this->email = $email;
     }
 
-    public function getFecharegistrousuario() {
-        return $this->fecharegistrousuario;
+    public function setStatus($status) {
+        $this->status = $status;
     }
 
-    public function getCodigotipousuario() {
-        return $this->codigotipousuario;
-    }
-
-    public function getIdusuariopadre() {
-        return $this->idusuariopadre;
-    }
-
-    public function getIpaccesousuario() {
-        return $this->ipaccesousuario;
-    }
-
-    public function getCodigoestadousuario() {
-        return $this->codigoestadousuario;
-    }
-
-    public function setIdusuario($idusuario) {
-        $this->idusuario = $idusuario;
-    }
-    
-    public function getUsuarioByIdUsuario(){
-        if(!empty($this->idusuario)){
+    public function getById(){
+        if(!empty($this->id)){
             $query = "SELECT * "
-                    . "FROM usuario "
-                    . "WHERE idusuario = ".$this->idusuario;
+                    . "FROM user "
+                    . "WHERE id = ".$this->db->qstr($this->id);
             $datos = $this->db->Execute($query);
             //ddd($query);
             if(!empty($datos)){
                 $d = $datos->FetchRow();
                 
-                $this->usuario = $d['usuario'];
-                $this->numerodocumento = $d['numerodocumento'];
-                $this->tipodocumento = $d['tipodocumento'];
-                $this->apellidos = $d['apellidos'];
-                $this->nombres = $d['nombres'];
-                $this->codigousuario = $d['codigousuario'];
-                $this->semestre = $d['semestre'];
-                $this->codigorol = $d['codigorol'];
-                $this->fechainiciousuario = $d['fechainiciousuario'];
-                $this->fechavencimientousuario = $d['fechavencimientousuario'];
-                $this->fecharegistrousuario = $d['fecharegistrousuario'];
-                $this->codigotipousuario = $d['codigotipousuario'];
-                $this->idusuariopadre = $d['idusuariopadre'];
-                $this->ipaccesousuario = $d['ipaccesousuario'];
-                $this->codigoestadousuario = $d['codigoestadousuario'];
+                $this->user = $d['user'];
+                $this->password = $d['password'];
+                $this->name = $d['name'];
+                $this->email = $d['email'];
+                $this->status = $d['status'];
             }
         }
     }
-	
+
+    public function getByUser(){
+        if(!empty($this->user)){
+            $query = "SELECT * "
+                    . "FROM user "
+                    . "WHERE user = ".$this->db->qstr($this->user);
+            $datos = $this->db->Execute($query);
+            //ddd($query);
+            if(!empty($datos)){
+                $d = $datos->FetchRow();
+                
+                $this->id = $d['id'];
+                $this->password = $d['password'];
+                $this->name = $d['name'];
+                $this->email = $d['email'];
+                $this->status = $d['status'];
+            }
+        }
+    }
+    
+    public function validatePassword($pswd){
+        if(!empty($this->password)){
+            $t = explode("::",$this->password);
+            $md5Pass = $t[0];
+            $key = $t[1];
+            
+            $validate = md5($pswd.$key);
+            return ($md5Pass===$validate);
+        }else{
+            return false;
+        }
+    }
  }
+ /*/
+ id	int(11)
+user	varchar(255)
+password	varchar(255)
+name	varchar(255)
+email	varchar(255)
+status	int(1)
+ /**/

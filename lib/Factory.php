@@ -6,6 +6,8 @@
  */
 defined('_EXEC') or die;
 require(PATH_SITE.'/lib/adodb5/adodb.inc.php');
+require_once (PATH_SITE.'/entidad/Usuario.php');
+require_once (PATH_SITE.'/entidad/Perfil.php');
 abstract class Factory{
     /**
      * @type adodb Object
@@ -154,9 +156,14 @@ abstract class Factory{
     
     public static function validateSession($variables){
         session_start();
-        $userId = self::getSessionVar('userId');
-        $auth = self::getSessionVar('auth');
-        if(empty($userId) || empty($auth) || $auth!==TRUE ){
+        $userId = null;
+        $Usuario = self::getSessionVar('Usuario');
+        //ddd($Usuario);
+        if( !empty($Usuario) ){
+            $userId = $Usuario->getId();
+        }
+        
+        if( !empty($Usuario) && empty($userId) ){
             if($variables->option!="login"){
                 header("Location: ".HTTP_SITE."?tmpl=login&option=login");
             }
@@ -175,9 +182,9 @@ abstract class Factory{
     }
     
     public static function setSessionVar($variable, $value){
-        if(!empty($_SESSION)){
-            return $_SESSION["System"]->$variable = $value;
-        }
+        //if(!empty($_SESSION)){
+            $_SESSION["System"]->$variable = $value;
+        //}
     }
     
     public static function createSession(){

@@ -81,27 +81,6 @@ $(document).ready(function(){
     
 });
 
-var theDocument;
-var http;
-var browser=navigator.appName;
-var estiloXLST;
-var msxml2DOM;
-var rta;
-
-if(browser=='Microsoft Internet Explorer')
-{
-	http=new ActiveXObject("Microsoft.XMLHTTP");
-}
-else
-{
-	http=new XMLHttpRequest();
-}
-/**
- * @author SALA Legacy
- * @copyright Dirección de Tecnología Branding Active
- * @package js login
- */
-
 var dataAlert = [{
             type : "info",
             icon : "fa-info-circle"
@@ -136,16 +115,14 @@ var autoClose = true;
 
 function login(){
     var clave = $("#clave").val();
-    clave = trasearclave(clave.trim());
+    clave = clave.trim();
     
     var login = $("#login").val();
     login = login.trim();
     
-    var cadena="login="+login+"&password="+clave;
-    
     $.ajax({
-        url: HTTP_ROOT+'/serviciosacademicos/consulta/loginv2.php',
-        type: "POST",
+        url: HTTP_SITE+'/index.php',
+        type: "GET",
         dataType: "json",
         data: {
             tmpl : 'json',
@@ -155,56 +132,14 @@ function login(){
             option : "login"
         },
         success: function( data ){
-            var autenticacion = data.aut;
-            var codigotipousuario = data.codigotipousuario*1;
-            
-            if(autenticacion=='SEGCLAVE'){
-                if(codigotipousuario!=0 && codigotipousuario==500){
-                    
-                    contentHTML = alertContent.replace("fa-icon", dataAlert[0].icon);
-                    contentHTML = contentHTML.replace('<span class="text-2x"></span>', '<span class="text-2x">'+data.mensaje+'</span>');
-                    showAlert(dataAlert[0].type,contentHTML);
-                    
-                    $.ajax({
-                        url: HTTP_SITE+"/index.php",
-                        type: "GET",
-                        dataType: "json",
-                        data: {
-                            tmpl : 'json',
-                            task : "setSegClaveReq",
-                            option : "login",
-                            autenticacion : 'SEGCLAVE'
-                        },
-                        success: function( data ){
-                        }
-                    });
-                    $("#login").attr("disabled", "disabled");
-                    $("#clave").attr("placeholder", "Segunda contraseña");
-                    $("#clave").val("");
-                    //alert('facultadeslv2.php?segClave');
-                }
-            }else if(autenticacion=='OK'){
+            if(data.s){
                 contentHTML = alertContent.replace("fa-icon", dataAlert[2].icon);
                 contentHTML = contentHTML.replace('<span class="text-2x"></span>', '<span class="text-2x">'+data.mensaje+'</span>');
                 
                 showAlert(dataAlert[2].type,contentHTML);
-
-                if(codigotipousuario!=0){
-                    switch(codigotipousuario){
-                        case 600:
-                        case 400:
-                        case 900:
-                        case 500://2
-                            window.setTimeout(function() {
-                                window.location.href = HTTP_SITE;
-                            }, 500);
-                            break;
-                    }
-                }else{
-                    contentHTML = alertContent.replace("fa-icon", dataAlert[4].icon);
-                    contentHTML = contentHTML.replace('<span class="text-2x"></span>', '<span class="text-2x">'+data.mensaje+'</span>');
-                    showAlert(dataAlert[4].type,contentHTML);
-                }             
+                window.setTimeout(function() {
+                    window.location.href = HTTP_SITE;
+                }, 500);
             }else{
                 contentHTML = alertContent.replace("fa-icon", dataAlert[4].icon);
                 contentHTML = contentHTML.replace('<span class="text-2x"></span>', '<span class="text-2x">'+data.mensaje+'</span>');
@@ -219,103 +154,6 @@ function login(){
     });
 }
 
-/**
- * @author SALA Legacy
- * @copyright Dirección de Tecnología Branding Active
- * @package js login
- */
-function trasearclave(clave){
-    var nuevacadena="";
-    for(i=0;i<=(clave.length-1);i++){
-        switch(clave.charAt(i)){
-            case "&":
-                nuevacadena+="%26";
-                break;
-            case "%":
-                nuevacadena+="%25";
-                break;
-            case "°":
-                nuevacadena+="%b0";
-                break;
-            case "\"":
-                return false;
-                break;
-            case "'":
-                return false;
-                break;
-            case ";":
-                return false;
-                break;
-            case "¡":
-                nuevacadena+="%a1";
-                break;
-            case "¿":
-                nuevacadena+="%bf";
-                break;
-            case "Á":
-                nuevacadena+="%c1";
-                break;
-            case "á":
-                nuevacadena+="%e1";
-                break;
-            case "É":
-                nuevacadena+="%c9";
-                break;
-            case "é":
-                nuevacadena+="%e9";
-                break;
-            case "Í":
-                nuevacadena+="%cd";
-                break;
-            case "í":
-                nuevacadena+="%ed";
-                break;
-            case "Ó":
-                nuevacadena+="%d3";
-                break;
-            case "ó":
-                nuevacadena+="%f3";
-                break;
-            case "Ú":
-                nuevacadena+="%da";
-                break;
-            case "ú":
-                nuevacadena+="%fa";
-                break;
-            case "Ö":
-                nuevacadena+="%f6";
-                break;
-            case "ö":
-                nuevacadena+="%d6";
-                break;
-            case "Ü":
-                nuevacadena+="%dc";
-                break;
-            case "ü":
-                nuevacadena+="%fc";
-                break;
-            case "+":
-                nuevacadena+="%2b";
-                break;
-            case "\\":
-                nuevacadena+="%5c";
-                break;
-            case "ñ":
-                nuevacadena+="%f1";
-                break;
-            case "Ñ":
-                nuevacadena+="%d1";
-                break;
-            case "\$":
-                nuevacadena+="%24";
-                break;
-            default :
-                nuevacadena+=clave.charAt(i);
-                break;
-        }
-    }
-    return nuevacadena;
-}
 function showAlert(type, contentHtml){
     $.niftyNoty({
         type: type,
