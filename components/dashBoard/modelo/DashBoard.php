@@ -17,60 +17,12 @@ class DashBoard{
     }
     
     public function getVariables($variables){
-        /*
-         * perfil 1 = Estudiante
-         * perfil 2 = Profesor
-         * perfil 3 = Administrativo
-         * perfil 4 = Padre
-         */
         require_once (PATH_SITE."/entidad/Usuario.php");
-        require_once (PATH_SITE."/components/moduloCalendarioInstitucional/modelo/ModuloCalendarioInstitucional.php");
         $modeloRender = Factory::getRenderInstance();
         
         $array = array();
-        $Usuario = new Usuario();
-        $Usuario->setIdusuario(Factory::getSessionVar('idusuario'));
-        $Usuario->getUsuarioByIdUsuario();
+        $Usuario = Factory::getSessionVar('Usuario');
         
-        $idPerfil = Factory::getSessionVar('idPerfil');
-        $codigo = Factory::getSessionVar('codigo');
-        $documento = $Usuario->getNumerodocumento();
-        //d($idPerfil);
-        if(($idPerfil == 1 && ($codigo == $documento)) || (@$variables->layout=="carrerasEstudiante" )){
-            $variables->layout = "carrerasEstudiante";
-            $array["carrerasEstudiante"] = $this->getCarrerasEstudiante();
-        }
-        $tipoHorario = "";
-        if($idPerfil == 1){
-            $tipoHorario = 'estudiante';
-        }elseif($idPerfil == 2){
-            $tipoHorario = 'docente';
-        }
-        $array["horario"] = $this->getHorario($tipoHorario,$Usuario,$variables);
-        
-        $moduloCalendarioInstitucional = new ModuloCalendarioInstitucional($this->db);
-        $arrayCaledario = $moduloCalendarioInstitucional->getVariables($variables);
-        
-        $moduloName = "moduloCalendarioInstitucional"; 
-        //ddd($fecha); 
-
-        $calendario = $modeloRender->render('default',"/components/".$moduloName,$arrayCaledario, true);
-        
-        $array["calendario"] = $calendario;
-        
-        //d($idPerfil);
-        /*if($idPerfil){
-            $Votacion = $this->getVotacionDocente();
-            $array["Votacion"] = $Votacion;
-        }/**/
-        //$Modelo = new Menu($this->db);
-        //$array = $Modelo->getVariables($variables);  
-        //d($array);
-        /*$controlRender = new ControlRender();
-        $menu = $controlRender->render("menu",$array, true);
-        $array["menu"] = $menu;/**/
-        
-        //d($array);
         return $array;
     }
     

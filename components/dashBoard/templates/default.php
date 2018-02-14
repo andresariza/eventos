@@ -51,7 +51,7 @@ defined('_EXEC') or die;
         </div>
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title">Redes sociales</h3>
+                <h3 class="panel-title">Conéctate con la UEB</h3>
             </div>
             <div class="panel-body bs-dashDoard-btn">
                 <a title="" href="https://www.facebook.com/universidadelbosque" target="_blank" class="btn btn-labeled btn-primary btn-hover-primary fa fa-facebook icon-lg add-tooltip" data-original-title="Facebook" data-container="body">

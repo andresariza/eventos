@@ -14,8 +14,7 @@ class ModMainMenuHelper{
      */    
     public static function getMenu($db, $parent_id=0) {
         
-        $usuario=@$_SESSION['MM_Username'];
-        $ControlMenu = new ControlMenu($usuario,$db);
+        $ControlMenu = new ControlMenu($db);
 
         $menu = $ControlMenu->getMenu($parent_id);
 

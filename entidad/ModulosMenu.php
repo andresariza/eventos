@@ -129,7 +129,7 @@ class ModulosMenu{
     }
     
     public static function getListModulosMenu(){
-        $option = $_REQUEST['option'];
+        $option = @$_REQUEST['option'];
         //ddd($option);
         $return = array();
         if($option!="login"){
@@ -148,7 +148,7 @@ class ModulosMenu{
             if(!empty($where)){
                 $query .= " WHERE ".implode(" AND ", $where);
             }
-
+            
             $datos = $db->Execute($query);
             while($d = $datos->FetchRow()){
                 $ModulosMenu = new ModulosMenu();

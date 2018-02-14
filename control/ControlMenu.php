@@ -7,24 +7,13 @@
  * @package Menu
 */
 defined('_EXEC') or die;
+require_once(PATH_SITE."/entidad/Menu.php");
 class ControlMenu{
     /**
      * @type adodb Object
      * @access private
      */
     private $db;
-    
-    /**
-     * @type String
-     * @access private
-     */
-    private $usuario;
-
-    /**
-     * @type String
-     * @access public
-     */
-    public $queryBase;
     
     /**
      * @type String
@@ -38,64 +27,14 @@ class ControlMenu{
      */
     private $menu;
     
-    function __construct($usuario, $db) {
-        $this->usuario = $usuario;
+    function ControlMenu($db) {
         $this->db = $db;
-        $this->setQueryBase();
-    }
-    
-    public function setQueryBase(){
-        if($this->usuario == "estudianterestringido"){
-            $this->usuario = "estudiante";
-            // el usuario estudianterestringido solo se utiliza para temas de prematricula y no deberia setearse como usuario de sesion
-            Factory::setSessionVar('MM_Username', $this->usuario);
-        }
-        $this->queryBase = "
-                SELECT mu.idmenuopcion AS id, 
-                           mu.idpadremenuopcion AS parent_id,
-                           UPPER(mu.nombremenuopcion) AS text,
-                           mu.linkmenuopcion AS link,
-                           mu.linkAbsoluto AS linkAbsoluto,
-                           mu.framedestinomenuopcion AS linkTarget/*,
-                           mi.fa_icon,
-                           mi.image_path/**/
-                  FROM usuario u
-        INNER JOIN permisousuariomenuopcion pumu ON u.idusuario = pumu.idusuario
-        INNER JOIN permisomenuopcion pmu ON pumu.idpermisomenuopcion = pmu.idpermisomenuopcion
-        INNER JOIN detallepermisomenuopcion dpmu ON pmu.idpermisomenuopcion = dpmu.idpermisomenuopcion
-        INNER JOIN tipousuario tu ON u.codigotipousuario = tu.codigotipousuario
-        INNER JOIN menuopcion mu ON dpmu.idmenuopcion = mu.idmenuopcion
-        /* LEFT JOIN sala_MenuIcon mi ON (mi.idmenuopcion = mu.idmenuopcion)*/
-                 WHERE now() BETWEEN u.fechainiciousuario
-                   AND u.fechavencimientousuario
-                   AND pmu.codigoestado = 100
-                   AND pumu.codigoestado = 100
-                   AND dpmu.codigoestado = 100
-                   AND mu.codigoestadomenuopcion = '01'
-                   AND u.usuario = '".$this->usuario."'";
-        if(empty($this->usuario)){
-            $this->queryBase = "
-                    SELECT mu.idmenuopcion AS id, 
-                               mu.idpadremenuopcion AS parent_id,
-                               UPPER(mu.nombremenuopcion) AS text,
-                               mu.linkmenuopcion AS link,
-                               mu.framedestinomenuopcion AS linkTarget 
-                      FROM menuopcion mu  
-                     WHERE  1 ";
-        }
-                   
-        //d($this);
     }
     
     public function setDb($db) {
         $this->db = $db;
     }
     
-    
-    
-    public function setUsuario($usuario) {
-        $this->usuario = $usuario;
-    }
     /**
      * Consulta las y retorna el listado items de menu relacionados a un id padre 
      * @access public
@@ -106,29 +45,16 @@ class ControlMenu{
      * @since January 3, 2017
     */
     public function getMenu($parent_id=0, $textoBusqueda=null) {		
-        $query = $this->queryBase;
-
-        if($parent_id<0){
-                if(empty($textoBusqueda)){
-                        $query .="
-                           AND mu.idpadremenuopcion <> 0 ";
-                }
-        } else {
-                $query .="
-                   AND mu.idpadremenuopcion = ".$parent_id;
-        }
+        $query = "SELECT m.id mid, mp.id mpid "
+                . " FROM menu m "
+                . " INNER JOIN menuPerfil mp ON (m.id = mp.idMenu) "
+                . " WHERE m.idParent = ".$this->db->qstr($parent_id)
+                . " ORDER BY m.order";
 
         if(!empty($textoBusqueda)){
-                $query .="
-                   AND (mu.nombremenuopcion LIKE '%".$textoBusqueda."%') 
-                   AND mu.linkmenuopcion <> '' ";
-
+                $query .=" AND (m.name LIKE '%".$textoBusqueda."%') ";
         }
-        $query .="
-          GROUP BY mu.idmenuopcion
-          ORDER BY mu.codigotipomenuopcion, mu.idpadremenuopcion, mu.posicionmenuopcion, mu.nombremenuopcion
-        ";
-
+        //ddd($query);
         $datos = $this->db->Execute($query);
         //d($query);
         $nRows = $datos->NumRows(); 
@@ -137,13 +63,20 @@ class ControlMenu{
         //var_dump($menu );
         $temp=array();
         while($d = $datos->FetchRow()){
-            $m = new stdClass();
-            foreach($d as $k=>$v){
-                if(!is_numeric($k)){
-                    $m->$k = $v;
-                }
+            $Menu = new Menu();
+            $Menu->setDb();
+            $Menu->setId($d["mid"]);
+            $Menu->getById();
+            $status = $Menu->getStatus();
+            if($status == 1){
+                $m = new stdClass();
+                $m->text = $Menu->getName();
+                $m->link = $Menu->getLink();
+                $m->id = $Menu->getId();
+                
+                $temp[] = $m;
             }
-            $temp[] = $m;
+            unset($Menu);
         }
         $this->menu = $temp;
         unset( $temp );
