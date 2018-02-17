@@ -182,9 +182,10 @@ abstract class Factory{
     }
     
     public static function setSessionVar($variable, $value){
-        //if(!empty($_SESSION)){
-            $_SESSION["System"]->$variable = $value;
-        //}
+        if(empty($_SESSION["System"])){
+            $_SESSION["System"] = new stdClass();
+        }
+        $_SESSION["System"]->$variable = $value;
     }
     
     public static function createSession(){

@@ -1,4 +1,7 @@
-<?php defined('_EXEC') or die; ?>
+<?php 
+defined('_EXEC') or die; 
+//ddd($Usuario);
+?>
 <?php echo Factory::printImportJsCss("js",HTTP_SITE."/components/userMenu/assets/js/userMenu.js"); ?>
 <ul class="nav navbar-top-links pull-right">
     
@@ -20,7 +23,7 @@
                 <?php /*/ ?><img class="img-circle img-user media-object" src="<?php echo HTTP_ROOT; ?>/imagenes/estudiantes/1000123624.jpg" alt="Profile Picture"><?php /**/ ?>
                 <img class="img-circle img-user img-rectangulo media-object" src="<?php echo $imgUsuario; ?>" alt="Profile Picture">
             </span>
-            <div class="username hidden-xs"><?php echo ucwords(mb_strtolower($Usuario->getNombres(),"UTF-8"))." ".ucwords(mb_strtolower($Usuario->getApellidos(),"UTF-8"));?></div>
+            <div class="username hidden-xs"><?php echo ucwords(mb_strtolower($Usuario->getName(),"UTF-8"));?></div>
         </a>
         <div class="dropdown-menu dropdown-menu-md dropdown-menu-right with-arrow panel-default">
             <?php echo $curCarrera;?>

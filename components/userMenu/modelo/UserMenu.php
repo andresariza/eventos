@@ -24,11 +24,8 @@ class UserMenu{
     
     public function getVariables($variables){
         require_once (PATH_SITE."/entidad/Usuario.php");
-        require_once (PATH_SITE."/entidad/Carrera.php");
         //d($_SESSION);//43359
-        $Usuario = new Usuario();
-        $Usuario->setIdusuario(Factory::getSessionVar('idusuario'));
-        $Usuario->getUsuarioByIdUsuario();
+        $Usuario = Factory::getSessionVar('Usuario');
         
         $this->Usuario = $Usuario;
                
@@ -38,47 +35,16 @@ class UserMenu{
         
         $linkimagen = HTTP_SITE."/assets/img/av1.png";
         
-        $imagenjpg = $Usuario->getNumerodocumento().".jpg";
-        $imagenJPG = $Usuario->getNumerodocumento().".JPG";
-        //d(PATH_ROOT."/imagenes/estudiantes/".$imagenjpg);
-        if(is_file(PATH_ROOT."/imagenes/estudiantes/".$imagenjpg)){
-            $linkimagen = HTTP_ROOT."/imagenes/estudiantes/".$imagenjpg;
-        }elseif(is_file(PATH_ROOT."/imagenes/estudiantes/".$imagenJPG)){
-            $linkimagen = HTTP_ROOT."/imagenes/estudiantes/".$imagenJPG;
-        }
         $array['imgUsuario'] = $linkimagen;
         
         $array['menuItems'] = $this->getMenuItems();
         
-        $rolesmuliple = Factory::getSessionVar("rolesmuliple");  
-        $curRol = Factory::getSessionVar('idPerfil');  
-         
-        $codigofacultad = Factory::getSessionVar('codigofacultad');
-        $idCarrera = Factory::getSessionVar('codigofacultad');
-        
-        $rol = Factory::getSessionVar('rol');
-        
-        if((empty($codigofacultad) && $rol==1) || ($codigofacultad==1 && !empty($idCarrera))){
-            $idCarrera = Factory::getSessionVar('idCarrera');
-        }else{
-            $idCarrera = $codigofacultad;
-        }
-        
-        $Carrera = new Carrera();
-        $Carrera->setDb();
-        $Carrera->setCodigocarrera($idCarrera);
-        $Carrera->getByCodigo();
-        //d($Carrera);
-        $array['curCarrera'] = '<div class="pad-all bord-btm">'
-                    . '<p class="text-lg text-muted text-thin mar-btm" id="nombreCarrera" data-idCarrera="'.$Carrera->getCodigocarrera().'" >'
-                    . $Carrera->getNombrecarrera()
-                    . '</p>'
-                    . '</div>';
-        //d($array['curCarrera']);
+        $rolesmuliple = Factory::getSessionVar("rolesmuliple");
+        d($_SESSION);
         
         //d($rolesmuliple);
+        $selectPerfil = '';
         if(!empty($curRol)){ 
-            $selectPerfil = '';
             /*$selectPerfil = '<li class=""> '
                     . '<a class="btn-link" >'
                     . 'Perfil:'
@@ -113,8 +79,8 @@ class UserMenu{
             }
             $selectPerfil .= '</li>'; 
             //d($selectPerfil);
-            $array['selectPerfil'] = $selectPerfil;
         }
+        $array['selectPerfil'] = $selectPerfil;
         
         //d($_SESSION);
         //d($array);
@@ -166,7 +132,7 @@ class UserMenu{
     
     private function getMenuItems(){
         $items = array();
-        $codigotipousuario = $this->Usuario->getCodigotipousuario();
+        $codigotipousuario = 0;
         //d($codigotipousuario);
         //ddd($items);
         switch($codigotipousuario){
