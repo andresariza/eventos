@@ -1,7 +1,7 @@
 <?php defined('_EXEC') or die; ?>
 <!--================================-->
 <div id="mainnav-menu-wrap">
-    <div class="search">
+    <?php /*/ ?><div class="search">
         <div class="nano-content" tabindex="0" style="right: -17px;">
             <ul id="search-menu" class="list-group">
                 <!--Category name-->
@@ -13,20 +13,11 @@
                 </li>
             </ul>
         </div>
-    </div>
+    </div><?php /**/ ?>
     <div class="nano has-scrollbar">
         <div class="nano-content" tabindex="0" style="right: -17px;">
             <ul id="mainnav-menu" class="list-group">
-                <!--Menu list item--> 
-                <li class="active-link">
-                    <a href="<?php echo HTTP_SITE; ?>/index.php" id="menuId_0" rel="" class="menuItem">
-                        <i class="fa fa-home"></i>
-                        <span class="menu-title">
-                            <strong>INICIO</strong> 
-                        </span>
-                    </a>
-                </li> 
-
+                <!--Menu list item-->
                 <?php
                 foreach($menu as $m){
                         $li = ModMainMenuHelper::printMenuItem(Factory::createDbo(), $m );
@@ -37,7 +28,7 @@
 
                 <li class="list-divider"></li>
             </ul>
-            <!--Widget-->
+            <?php /*/ ?><!--Widget-->
             <!--================================-->
             <div class="mainnav-widget">
                 <!-- Show the button on collapsed navigation -->
@@ -51,13 +42,13 @@
                 <div id="demo-wg-server" class="hide-small mainnav-widget-content">
                     <ul class="list-group">
                         <li class="list-header pad-no pad-ver">Portal institucional</li>
-                        <li class="pad-ver mar-btm"><a href="http://www.uelbosque.edu.co/" target="_blank" class="btn btn-success btn-bock">Ir al portal</a></li>
+                        <li class="pad-ver mar-btm"><a href="#" target="_blank" class="btn btn-success btn-bock">Ir al portal</a></li>
                         <li class="mar-btm">&nbsp;</li>
                     </ul>
                 </div>
             </div>
             <!--================================-->
-            <!--End widget-->
+            <!--End widget--><?php /**/ ?>
         </div>
         <div class="nano-pane" style="display: none;"><div class="nano-slider" style="height: 20px;"></div></div>
 

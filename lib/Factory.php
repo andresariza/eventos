@@ -163,7 +163,7 @@ abstract class Factory{
             $userId = $Usuario->getId();
         }
         
-        if( !empty($Usuario) && empty($userId) ){
+        if( empty($Usuario) && empty($userId) ){
             if($variables->option!="login"){
                 header("Location: ".HTTP_SITE."?tmpl=login&option=login");
             }

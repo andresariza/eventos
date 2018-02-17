@@ -38,7 +38,7 @@
                     <a href="<?php echo HTTP_SITE; ?>" class="navbar-brand">
                         <img src="<?php echo HTTP_SITE; ?>/assets/images/logo.png" alt="Logo" class="brand-icon">
                         <div class="brand-title">
-                            <span class="brand-text"><img src="<?php echo HTTP_SITE; ?>/assets/images/logoPequeno.png" alt="btheme Logo" class="brand-icon"></span>
+                            <span class="brand-text">AUDITORIO</span>
                         </div>
                     </a>
                 </div>
@@ -106,7 +106,7 @@
             <!--===================================================-->
             <nav id="mainnav-container">
                 <div id="mainnav">
-                    <!--Shortcut buttons-->
+                    <?php /*/ ?><!--Shortcut buttons-->
                     <!--  -->
                     <div id="mainnav-shortcut">
                         <ul class="list-unstyled">
@@ -122,7 +122,7 @@
                             </li>
                         </ul>
                     </div>
-                    <!--End shortcut buttons-->
+                    <!--End shortcut buttons--><?php /**/ ?>
                     
                     <!--Menu-->
                     <?php echo $mainMenu; ?>
@@ -132,9 +132,9 @@
             </nav>
             <!--===================================================-->
             <!--END MAIN NAVIGATION-->
-			
-            <!--ASIDE-->
-            <!--===================================================-->
+            <?php 
+            if(!empty($asideContainer)){
+            ?>
             <!--ASIDE-->
             <!--===================================================-->
             <aside id="aside-container">
@@ -142,14 +142,15 @@
             </aside>
             <!--===================================================-->
             <!--END ASIDE-->
-            <!--===================================================-->
-            <!--END ASIDE-->
+            <?php
+            }
+            ?>
         </div>
         
         <!-- FOOTER -->
         <footer id="footer">
-            <div class="hide-fixed pull-right pad-rgt"><i class="fa fa-linux fa-php"></i> SALA V1.0</div>
-            <p class="pad-lft">&copy; <?php echo date('Y'); ?> Universidad El Bosque</p>
+            <div class="hide-fixed pull-right pad-rgt"><i class="fa fa-linux fa-php"></i> AUDITORIO V1.0</div>
+            <p class="pad-lft">&copy; <?php echo date('Y'); ?> BRANDING ACTIVE</p>
         </footer>
         <!-- END FOOTER -->
 

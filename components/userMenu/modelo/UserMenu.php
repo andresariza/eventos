@@ -40,7 +40,7 @@ class UserMenu{
         $array['menuItems'] = $this->getMenuItems();
         
         $rolesmuliple = Factory::getSessionVar("rolesmuliple");
-        d($_SESSION);
+        //d($_SESSION);
         
         //d($rolesmuliple);
         $selectPerfil = '';

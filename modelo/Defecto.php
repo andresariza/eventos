@@ -28,7 +28,7 @@ class Defecto{
     
     public function getTituloSeccion($option){
         if($option=="dashBoard"){
-            return "Servicio al Usuario";
+            return "Dashboard";
         }
     }
     

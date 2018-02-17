@@ -11,6 +11,7 @@ echo Factory::printImportJsCss("css",HTTP_SITE."/assets/css/bootstrap.css");
 <!--Btheme Stylesheet [ REQUIRED ]-->
 <?php
 echo Factory::printImportJsCss("css",HTTP_SITE."/assets/css/btheme.css");
+echo Factory::printImportJsCss("css",HTTP_SITE."/assets/css/nifty.min.css");
 ?>
     
 <!--Font Awesome [ OPTIONAL ]-->

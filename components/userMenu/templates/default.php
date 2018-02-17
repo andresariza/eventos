@@ -26,16 +26,6 @@ defined('_EXEC') or die;
             <div class="username hidden-xs"><?php echo ucwords(mb_strtolower($Usuario->getName(),"UTF-8"));?></div>
         </a>
         <div class="dropdown-menu dropdown-menu-md dropdown-menu-right with-arrow panel-default">
-            <?php echo $curCarrera;?>
-            <?php /*/?><!-- Dropdown heading  -->
-            <div class="pad-all bord-btm">
-                <p class="text-lg text-muted text-thin mar-btm">750Gb of 1,000Gb Used</p>
-                <div class="progress progress-sm">
-                    <div class="progress-bar" style="width: 70%;">
-                        <span class="sr-only">70%</span>
-                    </div>
-                </div>
-            </div><?php /**/ ?> 
             <!-- User dropdown menu -->
             <ul class="head-list">
                 <?php

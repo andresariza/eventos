@@ -14,7 +14,8 @@
 <div class="cls-header cls-header-lg">
     <div class="cls-brand">
         <a class="box-inline" href="<?php echo HTTP_SITE; ?>">
-            <span class="brand-title">Eventos <span class="text-thin">Login</span></span>
+            <img src="<?php echo HTTP_SITE;?>/assets/images/Logotipo_Login.png" class="img-responsive" />
+            <?php /*/ ?>Eventos <span class="text-thin">Login</span></span><?php /**/ ?>
         </a>
     </div>
 </div>

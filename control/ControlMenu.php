@@ -110,7 +110,7 @@ class ControlMenu{
     */
     public function printMenuItem( $menu, $child=false ){
         //d($menu);
-    	$uriBase=HTTP_ROOT;
+    	$uriBase=HTTP_SITE;
     	if(!empty($menu->fa_icon)){
             $icon = $menu->fa_icon;
     	}else{
@@ -138,12 +138,16 @@ class ControlMenu{
                 $reliframe = ' rel="iframe" ';
             }
     	}/**/
-        $link = $menu->linkAbsoluto;
+        $link = $menu->link;
         $t = explode("/",$link);
     	$reliframe = ' rel="" ';
     	if(empty($link)||($link=="#")){
     		$link = "#";
     	}else{
+            $link = $uriBase.'/'.$link;
+        }
+        
+        /*else{
             $link = $uriBase.'/'.$link; 
 
             if($t[0]=="sala"){
@@ -151,7 +155,7 @@ class ControlMenu{
             }else{
                 $reliframe = ' rel="iframe" ';
             }
-    	}
+    	}/**/
 		
     	$li = '
 				<li >
