@@ -119,7 +119,7 @@ class Menu{
 
     public function getById(){
         if(!empty($this->id)){
-            $query = "SELECT * FROM menu "
+            $query = "SELECT * FROM Menu "
                     . "WHERE id = ".$this->db->qstr($this->id);
             
             $datos = $this->db->Execute($query);
@@ -147,7 +147,7 @@ class Menu{
             $where[] = " id = ".$this->db->qstr($this->id);
         }
         
-        $query .= " menu SET "
+        $query .= " Menu SET "
                . " idParent = ".$this->db->qstr($this->idParent).", "
                . " name = ".$this->db->qstr($this->name).", "
                . " link = ".$this->db->qstr($this->link).", "
@@ -178,7 +178,7 @@ class Menu{
         $return = array();
         
         $query = "SELECT * "
-                . " FROM menu "
+                . " FROM Menu "
                 . " WHERE 1 ";
         if(!empty($where)){
             $query .= " AND ".$where;

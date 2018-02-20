@@ -47,7 +47,7 @@ class ControlLogin {
 
             if($return){
                 $query = "SELECT perfilId "
-                        . " FROM userPerfil "
+                        . " FROM UserPerfil "
                         . " WHERE userid = ".$this->db->qstr($Usuario->getId());
                 $datos = $this->db->Execute($query);
                 //d($query);

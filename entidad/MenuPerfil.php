@@ -78,7 +78,7 @@ class MenuPerfil{
     
     public function getById(){
         if(!empty($this->id)){
-            $query = "SELECT * FROM menuPerfil "
+            $query = "SELECT * FROM MenuPerfil "
                     . "WHERE id = ".$this->db->qstr($this->id);
             
             $datos = $this->db->Execute($query);
@@ -103,7 +103,7 @@ class MenuPerfil{
             $where[] = " id = ".$this->db->qstr($this->id);
         }
         
-        $query .= " menu SET "
+        $query .= " MenuPerfil SET "
                . " idMenu = ".$this->db->qstr($this->idMenu).", "
                . " idPerfil = ".$this->db->qstr($this->idPerfil).", "
                . " status = ".$this->db->qstr($this->status);
@@ -131,7 +131,7 @@ class MenuPerfil{
         $return = array();
         
         $query = "SELECT * "
-                . " FROM menu "
+                . " FROM MenuPerfil "
                 . " WHERE 1 ";
         if(!empty($where)){
             $query .= " AND ".$where;

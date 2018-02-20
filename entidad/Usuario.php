@@ -106,7 +106,7 @@ class Usuario{
     public function getById(){
         if(!empty($this->id)){
             $query = "SELECT * "
-                    . "FROM user "
+                    . "FROM User "
                     . "WHERE id = ".$this->db->qstr($this->id);
             $datos = $this->db->Execute($query);
             //ddd($query);
@@ -125,7 +125,7 @@ class Usuario{
     public function getByUser(){
         if(!empty($this->user)){
             $query = "SELECT * "
-                    . "FROM user "
+                    . "FROM User "
                     . "WHERE user = ".$this->db->qstr($this->user);
             $datos = $this->db->Execute($query);
             //ddd($query);
