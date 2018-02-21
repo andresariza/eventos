@@ -47,7 +47,7 @@ class ControlMenu{
     public function getMenu($parent_id=0, $textoBusqueda=null) {		
         $query = "SELECT m.id mid, mp.id mpid "
                 . " FROM Menu m "
-                . " INNER JOIN PenuPerfil mp ON (m.id = mp.idMenu) "
+                . " INNER JOIN MenuPerfil mp ON (m.id = mp.idMenu) "
                 . " WHERE m.idParent = ".$this->db->qstr($parent_id)
                 . " ORDER BY m.order";
 
