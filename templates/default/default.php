@@ -73,6 +73,13 @@
             <!--CONTENT CONTAINER-->
             <!--===================================================-->
             <div id="content-container">
+                <div class="loaderContent">
+                    <div class="contenedorInterior">
+                        <i class="fa fa-spinner fa-pulse fa-5x"></i>
+                        <span class="sr-only">Cargando...</span>
+                        <div id="mensajeLoader"></div>
+                    </div>
+                </div>
                 <div id="page-alert"></div>
                 <!--Page Title-->
                 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
@@ -106,28 +113,9 @@
             <!--===================================================-->
             <nav id="mainnav-container">
                 <div id="mainnav">
-                    <?php /*/ ?><!--Shortcut buttons-->
-                    <!--  -->
-                    <div id="mainnav-shortcut">
-                        <ul class="list-unstyled">
-                            <li class="col-xs-4" data-content="Preguntas Frecuentes" data-original-title="" title="">
-                                <a id="demo-toggle-aside" rel="iframe" class="menuItem shortcut-grid" href="<?php echo HTTP_ROOT; ?>/serviciosacademicos/consulta/facultades/centralPreguntasFrecuentes.htm">
-                                    <i class="fa fa-question-circle"></i>
-                                </a>
-                            </li>
-                            <li class="col-xs-4" data-content="Correo Institucional" data-original-title="" title="">
-                                <a id="demo-alert" rel="" class="shortcut-grid" href="https://mail.google.com/a/unbosque.edu.co" target="_blank">
-                                    <i class="fa fa-envelope"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <!--End shortcut buttons--><?php /**/ ?>
-                    
                     <!--Menu-->
                     <?php echo $mainMenu; ?>
                     <!--End menu-->
-                
                 </div>
             </nav>
             <!--===================================================-->

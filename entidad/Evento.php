@@ -171,7 +171,7 @@ class Evento{
         if(!empty($order)){
             $query .= " ORDER BY ".$order;
         }
-        d($query);
+        //d($query);
         $datos = $db->Execute($query);
         while($d = $datos->FetchRow()){
             $Evento = new Evento();

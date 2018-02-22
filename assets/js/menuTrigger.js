@@ -44,7 +44,8 @@ function loadMenuContent(obj){
         contentHTML = contentHTML.replace('<span class="text-2x"></span>', '<span class="text-2x">Aun no puede navegar por las opciones</span>');
         showAlert(dataAlert[0].type,contentHTML);
     }else{
-        if(reliframe=="iframe" && (hr!="" && hr!="#")){  
+        if(reliframe=="iframe" && (hr!="" && hr!="#")){
+            showLoader();
             if(hr.indexOf('?') != -1){
                 hr = hr+"&itemId="+itemId[1];
             }else{
@@ -52,10 +53,18 @@ function loadMenuContent(obj){
             }
             var height = $(document).outerHeight() - 175;
             var frame = '<iframe width="100%" height="'+height+'" frameborder="0" scrolling="auto" marginheight="0" marginwidth="0" name="contenidocentral" id="contenidocentral" src="'+hr+'"></iframe>';
-            $( "#page-content" ).html( frame ); 
+            $( "#page-content" ).html( frame );
+            $('#page-content #contenidocentral').on("load", function() {
+                hideLoader();
+            });
+            timeOutVar = window.setTimeout(function(){
+                $("#mensajeLoader").html("La carga esta tardando demaciado...");
+                timeOutVar = window.setTimeout(function(){hideLoader();}, 5000);
+            }, 15000);
             hideAsideModule(itemId[1]);
             //alert(boxed); 
         }else if(reliframe=="" && hr!="" && hr!="#" ){
+            showLoader();
             $.ajax({
                 url: $(obj).attr('href'),
                 type: "POST",
@@ -66,6 +75,8 @@ function loadMenuContent(obj){
                 success: function( data ){
                     $( "#page-content" ).html( data );
                 }
+            }).always(function() {
+                hideLoader();
             });
             hideAsideModule(itemId[1]);
         }

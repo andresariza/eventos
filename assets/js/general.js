@@ -1,4 +1,4 @@
-
+var timeOutVar = window.setTimeout(function(){},1);
 var dataAlert = [{
             type : "info",
             icon : "fa-info-circle"
@@ -38,5 +38,24 @@ function showAlert(type, contentHtml, focus){
         html : contentHtml,
         focus: focus,
         timer : autoClose ? timerClose : 0
+    });
+}
+function showLoader(){
+    $(".loaderContent").fadeIn();
+    $("#mensajeLoader").html("");
+}
+function hideLoader(){
+    $(".loaderContent").fadeOut();
+}
+
+function abrirModal(titulo,cuerpo){
+    bootbox.dialog({
+        title: titulo,
+        message: cuerpo,
+        buttons: {
+            /*confirm: {
+                label: "Save"
+            }/**/
+        }
     });
 }

@@ -66,6 +66,6 @@ echo Factory::printImportJsCss("css",HTTP_SITE."/assets/plugins/bootstrap-table/
 <!--Bootstrap Table [ OPTIONAL ]-->
 <?php 
 echo Factory::printImportJsCss("js",HTTP_SITE."/assets/plugins/bootstrap-table/bootstrap-table.min.js");
-//echo Factory::printImportJsCss("js",HTTP_SITE."/components/cambioPeriodo/assets/js/cambioPeriodo.js");
+echo Factory::printImportJsCss("js",HTTP_SITE."/components/eventos/assets/js/eventos.js");
 ?>
 
