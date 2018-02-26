@@ -4,50 +4,38 @@ defined('_EXEC') or die;
 <div class="panel">
     <!--Block Styled Form -->
     <!--===================================================-->
-    <form id="adminForm" name="adminForm" action="<?php echo HTTP_SITE;?>/index.php">
+    <form id="adminForm" name="adminForm" action="<?php echo HTTP_SITE;?>/index.php" method="multipart/form">
+        <input type="hidden" name="option" value="eventos" />
+        <input type="hidden" name="action" value="createEdit" />
         <div class="panel-body">
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label class="control-label" for="nombremenuopcion">Nombre </label>
-                        <input class="form-control" type="text" id="nombremenuopcion" name="nombremenuopcion" value="" />
+                        <label class="control-label" for="name">Nombre </label>
+                        <input class="form-control" type="text" id="name" name="name" value="" />
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label class="control-label" for="linkAbsoluto">Url absoluta </label>
-                        <input class="form-control" type="text" id="linkAbsoluto" name="linkAbsoluto" value="" />
+                        <label class="control-label" for="image">Imagen certificado </label>
+                        <input class="form-control" type="file" id="image" name="image" value="" />
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label class="control-label" for="idpadremenuopcion">Padre</label>
-                        <select class="form-control chosen-select" id="idpadremenuopcion" name="idpadremenuopcion">
-                            <option value="0" >Inicio</option>
-                        </select>
+                        <label class="control-label" for="fechaEvento">Fecha </label>
+                        <input class="form-control" type="date"  placeholder="yyyy-mm-dd" min="2000-01-02" id="fechaEvento" name="fechaEvento" value="" />
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label class="control-label" for="codigoestadomenuopcion">Estatus</label>
-                        <select class="form-control chosen-select" id="codigoestadomenuopcion" name="codigoestadomenuopcion">
-                            <option value="01" >Publicado</option>
-                            <option value="02" >Despublicado</option>
-                        </select>
+                        <label class="control-label" for="gionEvento">Gión </label>
+                        <textarea class="form-control" rows="5" id="gionEvento"></textarea>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="control-label" for="codigogerarquiarol">Gerarquia Rol</label>
-                        <select class="form-control chosen-select" id="codigogerarquiarol" name="codigogerarquiarol">
-                        </select>
-                    </div>
-                </div>
-            </div>
+            </div> 
         </div>
         <div class="panel-footer text-right">
             <button class="btn btn-success btn-labeled fa fa-floppy-o" id="save" type="submit">Guardar</button>
@@ -60,5 +48,7 @@ defined('_EXEC') or die;
 
 <!--Bootstrap Validator [ OPTIONAL ]-->
 <?php echo Factory::printImportJsCss("js",HTTP_SITE."/assets/plugins/bootstrap-validator/bootstrapValidator.min.js");?>
+<!--Masked Input [ OPTIONAL ]-->
+<?php echo Factory::printImportJsCss("js",HTTP_SITE."/assets/plugins/masked-input/jquery.maskedinput.min.js");?>
 <!--jQuery [ REQUIRED ]-->
 <?php echo Factory::printImportJsCss("js",HTTP_SITE."/components/eventos/assets/js/createEdit.js");?>
