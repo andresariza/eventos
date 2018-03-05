@@ -18,11 +18,18 @@ class Eventos{
     }
     
     public function getVariables($variables){
-        $array = array(); 
-        $array['Eventos'] = Evento::getList();
-        
-        //d($_SESSION);
-        //d($array);
+        $array = array();
+        if(empty($variables->layout) || $variables->layout!=="createEdit"){
+            $array['Eventos'] = Evento::getList();
+        }else{
+            $array['Evento'] = new Evento();
+            if(!empty($variables->id)){
+                $array['Evento']->setDb();
+                $array['Evento']->setId($variables->id);
+                $array['Evento']->getById();
+            }
+        }
+        //d($variables);
         return $array;
     }
 }

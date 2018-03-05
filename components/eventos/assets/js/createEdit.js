@@ -4,6 +4,16 @@ $(document).ready(function(){
         e.preventDefault();
         save();
     });
+    
+    $('#fechaEvento').datepicker({
+        format: "yyyy-mm-dd",
+        todayBtn: "linked",
+        autoclose: true,
+        todayHighlight: true,
+        language: "es-ES" ,
+        startDate: startDate
+    });
+    
     /*$("#adminForm").submit(function(e){
         e.preventDefault();
         e.stopPropagation();
@@ -40,59 +50,60 @@ $(document).ready(function(){
             gionEvento: {
                 validators: {
                     notEmpty: {
-                        message: 'El gión del evento es requerido'
+                        message: 'El guión del evento es requerido'
                     }
                 }
-            },
-            fechaEvento: {
-                validators: {
-                    notEmpty: {
-                        message: 'La fecha del evento es requerida'
-                    },
-                    file: {
-                        extension: 'jpeg,jpg,png,JPEG,JPG,PNG',
-                        type: 'image/jpeg,image/png',
-                        message: 'Please choose a MP3 file'
-                    }
-                }
-            },
+            }
         }
-    }).on('status.field.bv', function(e, data) {
-        var $form     = $(e.target),
-        validator = data.bv; 
-    });
-    $('#fechaEvento').mask('9999-99-99');
+    }).on('err.field.fv', function(e, data) {
+        data.fv.disableSubmitButtons(false);
+    }).on('success.field.fv', function(e, data) {
+        if (data.fv.getInvalidFields().length > 0) {    // There is invalid field
+            data.fv.disableSubmitButtons(true);
+        }
+    }) ;
 });
 
 function save(){
-    var datos = $('#adminForm').serializeArray();
-    $.ajax({
-        url: HTTP_SITE+'/index.php',
-        type: "GET",
-        dataType: "json",
-        data: datos,
-        contentType: 'multipart/form-data',
-        success: function( data ){
-            bootbox.hideAll();
-            if(data.s){
-                contentHTML = alertContent.replace("fa-icon", dataAlert[2].icon);
-                contentHTML = contentHTML.replace('<span class="text-2x"></span>', '<span class="text-2x">'+data.msj+'</span>');
-                showAlert(dataAlert[2].type,contentHTML,true);
-                
-                window.setTimeout(function() {
-                    $(".adm_menu").trigger("click"); 
-                }, 1500);
-            }else{
+    var allowSubmit = false;
+    var name = $('#name').val().trim();
+    var fechaEvento = $('#fechaEvento').val().trim();
+    var gionEvento = $('#gionEvento').val().trim();
+    if(name!=="" && fechaEvento!=="" && gionEvento!==""){
+        allowSubmit = true;
+    }
+    if(allowSubmit){
+        var datos = $('#adminForm').serializeArray();
+        $.ajax({
+            url: HTTP_SITE+'/index.php',
+            type: "GET",
+            dataType: "json",
+            data: datos,
+            contentType: 'multipart/form-data',
+            success: function( data ){
+                bootbox.hideAll();
+                if(data.s){
+                    contentHTML = alertContent.replace("fa-icon", dataAlert[2].icon);
+                    contentHTML = contentHTML.replace('<span class="text-2x"></span>', '<span class="text-2x">'+data.msj+'</span>');
+                    showAlert(dataAlert[2].type,contentHTML,true);
+
+                    window.setTimeout(function() {
+                        $("#menuId_2").trigger("click"); 
+                    }, 1500);
+                }else{
+                    contentHTML = alertContent.replace("fa-icon", dataAlert[4].icon);
+                    contentHTML = contentHTML.replace('<span class="text-2x"></span>', '<span class="text-2x">'+data.msj+'</span>');
+                    showAlert(dataAlert[4].type,contentHTML,true);
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
                 contentHTML = alertContent.replace("fa-icon", dataAlert[4].icon);
-                contentHTML = contentHTML.replace('<span class="text-2x"></span>', '<span class="text-2x">'+data.msj+'</span>');
+                contentHTML = contentHTML.replace('<span class="text-2x"></span>', '<span class="text-2x">El servidor no responde</span>');
                 showAlert(dataAlert[4].type,contentHTML,true);
             }
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            contentHTML = alertContent.replace("fa-icon", dataAlert[4].icon);
-            contentHTML = contentHTML.replace('<span class="text-2x"></span>', '<span class="text-2x">El servidor no responde</span>');
-            showAlert(dataAlert[4].type,contentHTML,true);
-        }
-    });
+        });
+    }else{
+        $("#save").attr("disable","disable");
+    }
 }
 
