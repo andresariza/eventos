@@ -26,7 +26,8 @@ echo Factory::printImportJsCss("css",HTTP_SITE."/assets/plugins/bootstrap-table/
                     <th data-field="idnumber" class="hidden-xs">#</th>
                     <th data-field="codePeriod" data-switchable="false">Codigo periodo</th>
                     <th data-field="period" data-sortable="false">Periodo</th> 
-                    <th data-field="state" data-sortable="false" class="hidden-xs">Estado</th> 
+                    <th data-field="state" data-sortable="false" class="hidden-xs">Estado</th>
+                    <th data-field="edit" data-sortable="false" class="hidden-xs">Editar</th>
                 </tr>
             </thead>
             <tbody>
@@ -37,20 +38,21 @@ echo Factory::printImportJsCss("css",HTTP_SITE."/assets/plugins/bootstrap-table/
                     <tr>
                         <td><?php echo $i;?></td>
                         <td>
-                            <a href="#" class="seleccionarPeriodo" data-id="<?php echo $m->getId();?>">
-                                <?php echo $m->getId();?>
-                            </a>
+                            <?php echo $m->getId();?>
                         </td>
                         <td>
-                            <a href="#" class="seleccionarPeriodo" data-id="<?php echo $m->getId();?>">
-                                <?php echo $m->getName();?>
-                            </a>
-                        </td> 
+                            <?php echo $m->getName();?>
+                        </td>
                         <td>
-                            <a href="#" class="seleccionarPeriodo" data-id="<?php echo $m->getId();?>">
-                                <?php echo $m->getStatus();?>
-                            </a>
-                        </td> 
+                            <?php 
+                            echo ControlEventos::printInconEstado($m->getStatus(), $m->getId());
+                            ?>
+                        </td>
+                        <td>
+                            <?php 
+                            echo ControlEventos::printInconEditar($m->getId());
+                            ?>
+                        </td>
                     </tr>
                     <?php
                     $i++;

@@ -126,7 +126,7 @@ class Evento{
         $query = "";
         $where = array();
         
-        if(empty($this->idmenuopcion)){
+        if(empty($this->id)){
             $query .= "INSERT INTO ";
         }else{
             $query .= "UPDATE ";
