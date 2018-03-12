@@ -28,6 +28,10 @@ echo Factory::printImportJsCss("css",HTTP_SITE."/assets/plugins/bootstrap-table/
                     <th data-field="period" data-sortable="false">Periodo</th> 
                     <th data-field="state" data-sortable="false" class="hidden-xs">Estado</th>
                     <th data-field="edit" data-sortable="false" class="hidden-xs">Editar</th>
+                    <th data-field="dataBase" data-sortable="false" class="hidden-xs">Cargar DB</th>
+                    <?php /*/ ?>
+                    <th data-field="certificado" data-sortable="false" class="hidden-xs">Certificado</th>
+                    <?php /**/ ?>
                 </tr>
             </thead>
             <tbody>
@@ -51,6 +55,11 @@ echo Factory::printImportJsCss("css",HTTP_SITE."/assets/plugins/bootstrap-table/
                         <td>
                             <?php 
                             echo ControlEventos::printInconEditar($m->getId());
+                            ?>
+                        </td>
+                        <td>
+                            <?php 
+                            echo ControlEventos::printInconDB($m->getId());
                             ?>
                         </td>
                     </tr>

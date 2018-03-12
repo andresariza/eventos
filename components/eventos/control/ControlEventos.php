@@ -92,4 +92,18 @@ class ControlEventos  {
         
         return $return;
     }
+    
+    public static function printInconDB($id){
+        $class = 'text-warning';        
+        $action = "cargarDB";
+        $icon = '<span class="fa-stack fa-lg">
+                    <i class="fa fa-square-o fa-stack-2x"></i>
+                    <i class="fa fa-database fa-stack-1x"></i> 
+                </span> ';
+        $title = 'Clic para ver/cargar DB';
+        
+        $return='<a class="accion '.$class.'" href="#" id="edit-icon-'.$id.'" data-id="'.$id.'" data-action="'.$action.'" data-toggle="tooltip" title="'.$title.'" >'.$icon.'</a>';
+        
+        return $return;
+    }
 }

@@ -43,7 +43,7 @@ $status = $Evento->getStatus();
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-12">
                     <div class="form-group">
                         <label class="control-label" for="gionEvento">Guión </label>
                         <textarea class="form-control" rows="5" id="gionEvento" name="gionEvento"><?php echo $gionEvento;?></textarea>

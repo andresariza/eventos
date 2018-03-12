@@ -10,10 +10,82 @@ Target Server Type    : MYSQL
 Target Server Version : 50559
 File Encoding         : 65001
 
-Date: 2018-02-17 10:33:06
+Date: 2018-03-12 13:43:48
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for Candidatos
+-- ----------------------------
+DROP TABLE IF EXISTS `Candidatos`;
+CREATE TABLE `Candidatos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idEvento` int(11) NOT NULL,
+  `idStatusCandidato` int(11) NOT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `documento` varchar(255) DEFAULT NULL,
+  `telefono` varchar(255) DEFAULT NULL,
+  `celular` varchar(255) DEFAULT NULL,
+  `fechaVolverContactar` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_ID_EVENTO` (`idEvento`),
+  KEY `FK_ID_STATUS_CANDIDATO` (`idStatusCandidato`),
+  CONSTRAINT `FK_ID_EVENTO` FOREIGN KEY (`idEvento`) REFERENCES `Evento` (`id`),
+  CONSTRAINT `FK_ID_STATUS_CANDIDATO` FOREIGN KEY (`idStatusCandidato`) REFERENCES `StatusCandidato` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of Candidatos
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for DatosAdicionalesEvento
+-- ----------------------------
+DROP TABLE IF EXISTS `DatosAdicionalesEvento`;
+CREATE TABLE `DatosAdicionalesEvento` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idEvento` int(11) NOT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `status` int(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_ID_EVENTO_D` (`idEvento`),
+  KEY `FK_STATUS` (`status`),
+  CONSTRAINT `FK_ID_EVENTO_D` FOREIGN KEY (`idEvento`) REFERENCES `Evento` (`id`),
+  CONSTRAINT `FK_STATUS` FOREIGN KEY (`status`) REFERENCES `Status` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of DatosAdicionalesEvento
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for Evento
+-- ----------------------------
+DROP TABLE IF EXISTS `Evento`;
+CREATE TABLE `Evento` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `gionEvento` text,
+  `imagePath` varchar(255) DEFAULT NULL,
+  `fechaEvento` date DEFAULT NULL,
+  `status` int(1) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `eventoStatus` (`status`),
+  CONSTRAINT `eventoStatus` FOREIGN KEY (`status`) REFERENCES `Status` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of Evento
+-- ----------------------------
+INSERT INTO `Evento` VALUES ('1', 'andres test', 'testas tase t', null, '2017-12-15', '1');
+INSERT INTO `Evento` VALUES ('2', 'andres test', 'testas tase t', null, '2017-12-15', '1');
+INSERT INTO `Evento` VALUES ('3', 'andres test', 'testas tase t', null, '2017-12-15', '1');
+INSERT INTO `Evento` VALUES ('4', 'andres test', 'testas tase t', null, '2017-12-15', '1');
+INSERT INTO `Evento` VALUES ('5', 'andres test', 'testas tase t', null, '2017-12-15', '1');
+INSERT INTO `Evento` VALUES ('6', 'andres test', 'testas tase t', null, '2017-12-15', '1');
+INSERT INTO `Evento` VALUES ('7', 'andres test', 'testas tase t', null, '2017-12-15', '1');
 
 -- ----------------------------
 -- Table structure for faIcons
@@ -815,10 +887,10 @@ INSERT INTO `faIcons` VALUES ('784', 'fa-wpexplorer');
 INSERT INTO `faIcons` VALUES ('785', 'fa-meetup');
 
 -- ----------------------------
--- Table structure for menu
+-- Table structure for Menu
 -- ----------------------------
-DROP TABLE IF EXISTS `menu`;
-CREATE TABLE `menu` (
+DROP TABLE IF EXISTS `Menu`;
+CREATE TABLE `Menu` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `idParent` int(11) NOT NULL DEFAULT '0',
   `name` varchar(255) NOT NULL,
@@ -828,41 +900,41 @@ CREATE TABLE `menu` (
   `status` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `MenuStatus` (`status`),
-  CONSTRAINT `MenuStatus` FOREIGN KEY (`status`) REFERENCES `status` (`id`)
+  CONSTRAINT `MenuStatus` FOREIGN KEY (`status`) REFERENCES `Status` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
--- Records of menu
+-- Records of Menu
 -- ----------------------------
-INSERT INTO `menu` VALUES ('1', '0', 'Empresas', '#', '', '0', '0');
-INSERT INTO `menu` VALUES ('2', '0', 'Eventos', '?option=eventos', '', '2', '1');
-INSERT INTO `menu` VALUES ('3', '0', 'Operadores', '?option=operador', '', '3', '1');
-INSERT INTO `menu` VALUES ('4', '0', 'Telemercadeo', '?option=telemercadeo', '', '4', '1');
-INSERT INTO `menu` VALUES ('5', '0', 'Reportes', '?option=reportes', '', '5', '1');
-INSERT INTO `menu` VALUES ('6', '0', 'Inicio', '?option=dashBoard', '', '1', '1');
+INSERT INTO `Menu` VALUES ('1', '0', 'Empresas', '#', '', '0', '0');
+INSERT INTO `Menu` VALUES ('2', '0', 'Eventos', '?option=eventos', '', '2', '1');
+INSERT INTO `Menu` VALUES ('3', '0', 'Operadores', '?option=operador', '', '3', '1');
+INSERT INTO `Menu` VALUES ('4', '0', 'Telemercadeo', '?option=telemercadeo', '', '4', '1');
+INSERT INTO `Menu` VALUES ('5', '0', 'Reportes', '?option=reportes', '', '5', '1');
+INSERT INTO `Menu` VALUES ('6', '0', 'Inicio', '?option=dashBoard', '', '1', '1');
 
 -- ----------------------------
--- Table structure for menuPerfil
+-- Table structure for MenuPerfil
 -- ----------------------------
-DROP TABLE IF EXISTS `menuPerfil`;
-CREATE TABLE `menuPerfil` (
+DROP TABLE IF EXISTS `MenuPerfil`;
+CREATE TABLE `MenuPerfil` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `idMenu` int(11) NOT NULL,
   `idPerfil` int(11) NOT NULL,
   `status` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `StatusMenuPerfil` (`status`),
-  CONSTRAINT `StatusMenuPerfil` FOREIGN KEY (`status`) REFERENCES `status` (`id`)
+  CONSTRAINT `StatusMenuPerfil` FOREIGN KEY (`status`) REFERENCES `Status` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
--- Records of menuPerfil
+-- Records of MenuPerfil
 -- ----------------------------
-INSERT INTO `menuPerfil` VALUES ('1', '2', '1', '1');
-INSERT INTO `menuPerfil` VALUES ('2', '3', '1', '1');
-INSERT INTO `menuPerfil` VALUES ('3', '4', '1', '1');
-INSERT INTO `menuPerfil` VALUES ('4', '5', '1', '1');
-INSERT INTO `menuPerfil` VALUES ('5', '6', '1', '1');
+INSERT INTO `MenuPerfil` VALUES ('1', '2', '1', '1');
+INSERT INTO `MenuPerfil` VALUES ('2', '3', '1', '1');
+INSERT INTO `MenuPerfil` VALUES ('3', '4', '1', '1');
+INSERT INTO `MenuPerfil` VALUES ('4', '5', '1', '1');
+INSERT INTO `MenuPerfil` VALUES ('5', '6', '1', '1');
 
 -- ----------------------------
 -- Table structure for ModulosMenu
@@ -883,45 +955,63 @@ INSERT INTO `ModulosMenu` VALUES ('1', '0', 'mainMenu', '1');
 INSERT INTO `ModulosMenu` VALUES ('2', '0', 'userMenu', '1');
 
 -- ----------------------------
--- Table structure for perfil
+-- Table structure for Perfil
 -- ----------------------------
-DROP TABLE IF EXISTS `perfil`;
-CREATE TABLE `perfil` (
+DROP TABLE IF EXISTS `Perfil`;
+CREATE TABLE `Perfil` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
   `status` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `PerfilStatus` (`status`),
-  CONSTRAINT `PerfilStatus` FOREIGN KEY (`status`) REFERENCES `status` (`id`)
+  CONSTRAINT `PerfilStatus` FOREIGN KEY (`status`) REFERENCES `Status` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
--- Records of perfil
+-- Records of Perfil
 -- ----------------------------
-INSERT INTO `perfil` VALUES ('1', 'superadmin', 'Super Administrador', '1');
+INSERT INTO `Perfil` VALUES ('1', 'superadmin', 'Super Administrador', '1');
 
 -- ----------------------------
--- Table structure for status
+-- Table structure for Status
 -- ----------------------------
-DROP TABLE IF EXISTS `status`;
-CREATE TABLE `status` (
+DROP TABLE IF EXISTS `Status`;
+CREATE TABLE `Status` (
   `id` int(1) NOT NULL,
   `statusName` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
--- Records of status
+-- Records of Status
 -- ----------------------------
-INSERT INTO `status` VALUES ('0', 'Despublicado');
-INSERT INTO `status` VALUES ('1', 'Publicado');
+INSERT INTO `Status` VALUES ('0', 'Despublicado');
+INSERT INTO `Status` VALUES ('1', 'Publicado');
 
 -- ----------------------------
--- Table structure for user
+-- Table structure for StatusCandidato
 -- ----------------------------
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
+DROP TABLE IF EXISTS `StatusCandidato`;
+CREATE TABLE `StatusCandidato` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of StatusCandidato
+-- ----------------------------
+INSERT INTO `StatusCandidato` VALUES ('1', 'Confirmado');
+INSERT INTO `StatusCandidato` VALUES ('2', 'No interesado');
+INSERT INTO `StatusCandidato` VALUES ('3', 'Volver a llamar');
+INSERT INTO `StatusCandidato` VALUES ('4', 'Nuevo');
+
+-- ----------------------------
+-- Table structure for User
+-- ----------------------------
+DROP TABLE IF EXISTS `User`;
+CREATE TABLE `User` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
@@ -930,30 +1020,53 @@ CREATE TABLE `user` (
   `status` int(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `status` (`status`),
-  CONSTRAINT `status` FOREIGN KEY (`status`) REFERENCES `status` (`id`)
+  CONSTRAINT `status` FOREIGN KEY (`status`) REFERENCES `Status` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
--- Records of user
+-- Records of User
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'admin', 'e962735010b9b1f71f04fbf84bc90bee::MTUxODU0NDU4Ng==', 'Administrador', 'admin@admin.com', '1');
+INSERT INTO `User` VALUES ('1', 'admin', 'e962735010b9b1f71f04fbf84bc90bee::MTUxODU0NDU4Ng==', 'Administrador', 'admin@admin.com', '1');
 
 -- ----------------------------
--- Table structure for userPerfil
+-- Table structure for UserPerfil
 -- ----------------------------
-DROP TABLE IF EXISTS `userPerfil`;
-CREATE TABLE `userPerfil` (
+DROP TABLE IF EXISTS `UserPerfil`;
+CREATE TABLE `UserPerfil` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userId` int(11) NOT NULL,
   `perfilId` int(11) NOT NULL,
   `status` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `UsuarioPerfilStatus` (`status`),
-  CONSTRAINT `UsuarioPerfilStatus` FOREIGN KEY (`status`) REFERENCES `status` (`id`)
+  CONSTRAINT `UsuarioPerfilStatus` FOREIGN KEY (`status`) REFERENCES `Status` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
--- Records of userPerfil
+-- Records of UserPerfil
 -- ----------------------------
-INSERT INTO `userPerfil` VALUES ('1', '1', '1', '1');
+INSERT INTO `UserPerfil` VALUES ('1', '1', '1', '1');
+
+-- ----------------------------
+-- Table structure for ValorDatosAdicionales
+-- ----------------------------
+DROP TABLE IF EXISTS `ValorDatosAdicionales`;
+CREATE TABLE `ValorDatosAdicionales` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idDatosAdicionalesEvento` int(11) NOT NULL,
+  `idCandidato` int(11) NOT NULL,
+  `value` varchar(255) NOT NULL,
+  `status` int(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_ID_DATOSADIC` (`idDatosAdicionalesEvento`),
+  KEY `FK_ID_CANDIDATO` (`idCandidato`),
+  KEY `FK_STATUS_VDA` (`status`),
+  CONSTRAINT `FK_ID_DATOSADIC` FOREIGN KEY (`idDatosAdicionalesEvento`) REFERENCES `DatosAdicionalesEvento` (`id`),
+  CONSTRAINT `FK_ID_CANDIDATO` FOREIGN KEY (`idCandidato`) REFERENCES `Candidatos` (`id`),
+  CONSTRAINT `FK_STATUS_VDA` FOREIGN KEY (`status`) REFERENCES `Status` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of ValorDatosAdicionales
+-- ----------------------------
 SET FOREIGN_KEY_CHECKS=1;
